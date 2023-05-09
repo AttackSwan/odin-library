@@ -5,9 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Libre+Caslon+Text&family=Montserrat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="reset" href="reset.css" />
     <script src="javascript.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="branding">
+          <img src="/img/book.svg" alt="book icon" class="filter-brown" />
+          <p>LIBRARY</p>
+        </div>
+        <div class="add">
+          <button>
+            <img src="/img/add.svg" alt="add book icon" />
+            <p>ADD NEW BOOK</p>
+          </button>
+        </div>
+        <div class="user">
+          <a href="https://github.com/AttackSwan/">
+            <img
+              src="img/github.svg"
+              alt="github profile icon"
+              class="filter-brown"
+            />
+          </a>
+          <a href="https://github.com/AttackSwan/">
+            <p>AttackSwan</p>
+          </a>
+        </div>
+      </div>
+      <div class="books"></div>
+    </div>
+  </body>
 </html>
