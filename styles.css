@@ -66,9 +66,9 @@ body {
 	height: 20px;
 }
 
-.books {
+/* .books {
 	overflow: scroll;
-}
+} */
 
 .user {
 	align-items: center;
@@ -111,7 +111,6 @@ input {
 	width: 100%;
 	outline: none;
 	color: var(--color-brown);
-	/* border: 0; */
 }
 
 .read {
@@ -120,6 +119,26 @@ input {
 	width: 100%;
 	grid-template-columns: 3fr 1fr;
 	align-items: center;
+}
+
+.book-container {
+	display: grid;
+	grid-template-rows: 1fr 50px 15px 1fr 50px 15px 10px;
+}
+
+.top-shelf {
+	background: rgb(242, 229, 208);
+	background: linear-gradient(
+		180deg,
+		rgba(242, 229, 208, 1) 0%,
+		rgba(249, 243, 238, 1) 100%
+	);
+}
+
+.shelf {
+	background-color: var(--color-fg);
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+		rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 button {
@@ -140,6 +159,10 @@ button:active {
 	transform: translateY(0);
 }
 
+button:disabled {
+	cursor: auto;
+}
+
 .open-form {
 	background-color: var(--color-bronze);
 }
@@ -150,7 +173,7 @@ button:active {
 	justify-content: center;
 }
 
-.open-form:hover {
+.open-form:hover:enabled {
 	background-color: var(--color-ltBronze);
 }
 
