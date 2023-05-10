@@ -8,7 +8,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Libre+Caslon+Text&family=Montserrat:wght@600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&family=Lobster+Two&family=Montserrat:wght@600&display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="reset.css" />
@@ -46,8 +46,8 @@
 				</div>
 			</div>
 			<div class="book-container">
-				<div class="books">
-					<div class="book">
+				<div class="books top">
+					<div class="book" data-index="0">
 						<div class="title">
 							The Lord of The Rings: Fellowship of the Ring
 						</div>
@@ -57,23 +57,18 @@
 						<div class="bookRead"></div>
 						<div class="bookSide"></div>
 					</div>
-					<div class="book"></div>
-					<div class="book"></div>
-					<div class="book"></div>
-					<div class="book"></div>
-					<div class="book"></div>
 				</div>
 				<div class="top-shelf"></div>
 				<div class="shelf"></div>
-				<div class="books"></div>
+				<div class="books bottom"></div>
 				<div class="top-shelf"></div>
 				<div class="shelf"></div>
 			</div>
 		</div>
 
 		<div class="form">
-			<form action="#" method="post" onsubmit="return confirmPassword()">
-				<div class="inputs">
+			<form action="#" method="post">
+				<div class="form-input">
 					<h1>Add new book</h1>
 					<input
 						type="text"
@@ -103,14 +98,9 @@
 					/>
 					<div class="read">
 						<p>Have you read it?</p>
-						<input
-							type="checkbox"
-							id="read"
-							name="book-read"
-							required
-						/>
+						<input type="checkbox" id="read" name="book-read" />
 					</div>
-					<button class="submit-button">Submit</button>
+					<button class="submit-button" type="submit">Submit</button>
 				</div>
 			</form>
 		</div>

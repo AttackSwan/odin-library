@@ -6,8 +6,8 @@
 	--color-ltBronze: #fabf72;
 }
 
-/* font-family: 'Archivo Black', sans-serif;
-font-family: 'Libre Caslon Text', serif;
+/* font-family: 'Libre Caslon Text', serif;
+
 font-family: 'Montserrat', sans-serif; */
 
 body {
@@ -92,7 +92,7 @@ body {
 	border: solid 2px black;
 }
 
-.inputs {
+.form-input {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -142,6 +142,7 @@ input {
 	top: 40px;
 	width: 166px;
 	color: var(--color-brown);
+	font-family: "Libre Caslon Text", serif;
 }
 
 .bookSide {
@@ -160,7 +161,7 @@ input {
 .title {
 	background-color: var(--color-bronze);
 	grid-area: 1 / 1 / 2 / 2;
-	padding: 32px 16px;
+	padding: 32px 8px;
 	text-align: center;
 }
 
@@ -179,6 +180,7 @@ input {
 	grid-area: 1 / 3 / 3 / 4;
 	writing-mode: vertical-lr;
 	padding: 8px;
+	font-size: 0.8rem;
 }
 
 .top-shelf {
