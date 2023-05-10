@@ -126,6 +126,61 @@ input {
 	grid-template-rows: 1fr 50px 15px 1fr 50px 15px 10px;
 }
 
+.books {
+	display: flex;
+	gap: 64px;
+	padding: 0 128px;
+}
+
+.book {
+	display: grid;
+	grid-template-columns: 122px 10px 28px 6px;
+	grid-template-rows: 2fr 1fr;
+	height: 240px;
+	left: 30px;
+	position: relative;
+	top: 40px;
+	width: 166px;
+	color: var(--color-brown);
+}
+
+.bookSide {
+	background-image: url("img/bookSide.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	grid-area: 1 / 4 / 3 / 5;
+}
+
+.stripe {
+	background-color: var(--color-fg);
+	grid-area: 1 / 2 / 3 / 3;
+}
+
+.title {
+	background-color: var(--color-bronze);
+	grid-area: 1 / 1 / 2 / 2;
+	padding: 32px 16px;
+	text-align: center;
+}
+
+.author {
+	align-items: end;
+	background-color: var(--color-bronze);
+	display: flex;
+	grid-area: 2 / 1 / 3 / 2;
+	padding: 16px 16px;
+	text-align: center;
+}
+.pages {
+	background-color: var(--color-bronze);
+	display: flex;
+	transform: rotate(180deg);
+	grid-area: 1 / 3 / 3 / 4;
+	writing-mode: vertical-lr;
+	padding: 8px;
+}
+
 .top-shelf {
 	background: rgb(242, 229, 208);
 	background: linear-gradient(
