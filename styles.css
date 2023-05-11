@@ -113,6 +113,11 @@ input {
 	color: var(--color-brown);
 }
 
+.error {
+	font-weight: 600;
+	display: none;
+}
+
 .read {
 	display: grid;
 	font-size: 1.2rem;

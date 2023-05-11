@@ -24,7 +24,7 @@ function addBookToLibrary(data) {
 		isRead
 	);
 	myLibrary.push(newBook);
-	console.log(newBook);
+	addToDom(newBook);
 }
 
 function showForm() {
@@ -37,38 +37,30 @@ function hideForm() {
 	form.style.display = "none";
 	container.style.filter = "blur(0)";
 	formButton.disabled = false;
+	document.getElementById("book-form").reset();
 }
 
 function submitForm(e) {
 	e.preventDefault();
 	const data = new FormData(e.target);
-	addBookToLibrary(data);
+	const title = data.get("book-title");
+
+	if (BookExists(title)) {
+		document.querySelector(".error").style.display = "block";
+	} else {
+		document.querySelector(".error").style.display = "none";
+		addBookToLibrary(data);
+		hideForm();
+	}
 }
 
-function displayBooks() {
-	//for each book in the array
-	myLibrary.forEach(addToDom);
-	//add the book to the Dom
-	// let arrayIndex = myLibrary.length;
-	// console.log(arrayIndex);
-
-	// let book = document.createElement("div");
-	// book.classList.add("book");
-	// book.setAttribute("data-index", arrayIndex);
-	// books.appendChild(book);
-	// myLibrary.push(book);
-
-	// console.log(myLibrary);
-	// for (i = 0; i < (size * size); i++){
-	//     let cell = document.createElement('div');
-	//     cell.classList.add("grid-item");
-	//     cell.setAttribute('Data-opacity', 0);
-	//     //add listener
-	//     cell.addEventListener('mouseover', (e) => {
-	//         colorCell(e);
-	//     });
-	//     grid.appendChild(cell);
+function BookExists(title) {
+	return myLibrary.some(
+		(book) => book.title.toLowerCase() === title.toLowerCase()
+	);
 }
+
+function displayBooks() {}
 
 function addToDom(book) {
 	const newBook = document.createElement("div");
@@ -104,6 +96,7 @@ function createDivWithContent(className, content) {
 }
 
 function initShelf() {
+	//Three books to initialise the bookshelf
 	const initBook1 = new Book(
 		"The Fellowship of the Ring",
 		"J. R. R. Tolkien",
@@ -118,7 +111,9 @@ function initShelf() {
 	);
 	const initBook3 = new Book("Heir to the Empire", "Timothy Zhan", 416, true);
 	myLibrary.push(initBook1, initBook2, initBook3);
-	displayBooks();
+
+	//display initial books
+	myLibrary.forEach(addToDom);
 }
 
 initShelf();
