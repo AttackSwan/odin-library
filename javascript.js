@@ -5,31 +5,47 @@ const container = document.querySelector(".container");
 
 formButton.onclick = () => showForm();
 form.addEventListener("submit", submitForm);
-// formButton.onclick = () => addBook();
 
 let myLibrary = [];
 
+function Book(title, author, pages, read) {
+	this.title = title;
+	this.author = author;
+	this.pages = pages;
+	this.read = read;
+}
+
+function addBookToLibrary(data) {
+	let isRead = true;
+	if (data.get("book-read") === null) {
+		isRead = false;
+	}
+	const newBook = new Book(
+		data.get("book-title"),
+		data.get("book-author"),
+		data.get("book-pages"),
+		isRead
+	);
+	myLibrary.push(newBook);
+	console.log(myLibrary);
+}
+
 function showForm() {
-	// console.log("Click");
 	form.style.display = "block";
 	container.style.filter = "blur(4px)";
 	formButton.disabled = true;
-}
-
-function submitForm(e) {
-	e.preventDefault();
-	const myFormData = new FormData(e.target);
-
-	const formDataObj = {};
-	myFormData.forEach((value, key) => (formDataObj[key] = value));
-	console.log(formDataObj);
-	hideForm();
 }
 
 function hideForm() {
 	form.style.display = "none";
 	container.style.filter = "blur(0)";
 	formButton.disabled = false;
+}
+
+function submitForm(e) {
+	e.preventDefault();
+	const data = new FormData(e.target);
+	addBookToLibrary(data);
 }
 
 function addBook() {
