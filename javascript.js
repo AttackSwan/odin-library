@@ -69,13 +69,14 @@ function addToDom(book) {
 	const titleDiv = createDivWithContent("title", book.title);
 	const authorDiv = createDivWithContent("author", book.author);
 	const pagesDiv = createDivWithContent("pages", book.pages + " pages");
+	const iconsDiv = createIconsDiv();
 
 	newBook.append(
 		titleDiv,
 		authorDiv,
 		pagesDiv,
 		createDiv("stripe"),
-		createDiv("icons"),
+		iconsDiv,
 		createDiv("bookSide")
 	);
 
@@ -93,6 +94,30 @@ function createDivWithContent(className, content) {
 	const div = createDiv(className);
 	div.appendChild(document.createTextNode(content));
 	return div;
+}
+
+function createIconsDiv() {
+	const div = createDiv("icons");
+	const completedButton = createButton("complete");
+	const deleteButton = createButton("delete");
+
+	div.append(completedButton, deleteButton);
+	return div;
+}
+
+function createButton(id) {
+	//ensure svg filename matches id.
+	const button = document.createElement("button");
+	button.classList.add("icon");
+	button.id = id;
+
+	const img = document.createElement("img");
+	img.src = `/img/${id}.svg`;
+	img.alt = `${id} icon`;
+	img.classList.add("filter-brown");
+
+	button.appendChild(img);
+	return button;
 }
 
 function initShelf() {
