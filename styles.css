@@ -222,12 +222,12 @@ button.icon {
 	padding: 0;
 }
 
-button#complete:hover {
+#complete:hover {
 	filter: invert(49%) sepia(59%) saturate(3874%) hue-rotate(91deg)
 		brightness(133%) contrast(113%);
 }
 
-button#delete:hover {
+#delete:hover {
 	filter: invert(17%) sepia(99%) saturate(7393%) hue-rotate(2deg)
 		brightness(114%) contrast(115%);
 }

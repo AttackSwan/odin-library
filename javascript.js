@@ -11,11 +11,28 @@ let myLibrary = [];
 function addListeners() {
 	books.addEventListener("click", function (event) {
 		if (event.target.id === "delete") {
-			console.log("delete button pressed");
+			const book = event.target.closest(".book");
+			const index = book.getAttribute("data-key");
+			//delete from library
+			myLibrary.splice(index, 1);
+			//delete from DOM
+			book.remove();
+			updateDataKeys();
+			console.log(myLibrary);
 		} else if (event.target.id === "complete") {
 			console.log("complete button pressed");
 		}
 	});
+}
+
+function updateDataKeys() {
+	const bookDivs = document.querySelectorAll(".book");
+	for (let i = 0; i < bookDivs.length; i++) {
+		const key = parseInt(bookDivs[i].getAttribute("data-key"));
+		if (key > i) {
+			bookDivs[i].setAttribute("data-key", i);
+		}
+	}
 }
 
 function Book(title, author, pages, read) {
@@ -70,8 +87,6 @@ function BookExists(title) {
 	);
 }
 
-function displayBooks() {}
-
 function addToDom(book) {
 	const newBook = document.createElement("div");
 	newBook.classList.add("book");
@@ -81,7 +96,8 @@ function addToDom(book) {
 	const pagesDiv = createDivWithContent("pages", book.pages + " pages");
 	const iconsDiv = createIconsDiv();
 
-	newBook.setAttribute("data-key", myLibrary.length);
+	//book has already been added so length will be -1
+	newBook.setAttribute("data-key", myLibrary.length - 1);
 
 	newBook.append(
 		titleDiv,
