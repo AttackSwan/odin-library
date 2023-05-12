@@ -1,4 +1,4 @@
-const books = document.querySelector(".books.top");
+const books = document.querySelector(".books");
 const formButton = document.querySelector(".open-form");
 const form = document.querySelector(".form");
 const container = document.querySelector(".container");
@@ -75,7 +75,7 @@ function addToDom(book) {
 		authorDiv,
 		pagesDiv,
 		createDiv("stripe"),
-		createDiv("bookRead"),
+		createDiv("icons"),
 		createDiv("bookSide")
 	);
 
