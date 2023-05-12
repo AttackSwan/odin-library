@@ -8,6 +8,16 @@ form.addEventListener("submit", submitForm);
 
 let myLibrary = [];
 
+function addListeners() {
+	books.addEventListener("click", function (event) {
+		if (event.target.id === "delete") {
+			console.log("delete button pressed");
+		} else if (event.target.id === "complete") {
+			console.log("complete button pressed");
+		}
+	});
+}
+
 function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
@@ -15,14 +25,8 @@ function Book(title, author, pages, read) {
 	this.read = read;
 }
 
-function addBookToLibrary(data) {
-	const isRead = data.get("book-read") !== null;
-	const newBook = new Book(
-		data.get("book-title"),
-		data.get("book-author"),
-		data.get("book-pages"),
-		isRead
-	);
+function addBookToLibrary(title, author, pages, isRead) {
+	const newBook = new Book(title, author, pages, isRead);
 	myLibrary.push(newBook);
 	addToDom(newBook);
 }
@@ -44,12 +48,18 @@ function submitForm(e) {
 	e.preventDefault();
 	const data = new FormData(e.target);
 	const title = data.get("book-title");
+	const isRead = data.get("book-read") !== null;
 
 	if (BookExists(title)) {
 		document.querySelector(".error").style.display = "block";
 	} else {
 		document.querySelector(".error").style.display = "none";
-		addBookToLibrary(data);
+		addBookToLibrary(
+			title,
+			data.get("book-author"),
+			data.get("book-pages"),
+			isRead
+		);
 		hideForm();
 	}
 }
@@ -71,6 +81,8 @@ function addToDom(book) {
 	const pagesDiv = createDivWithContent("pages", book.pages + " pages");
 	const iconsDiv = createIconsDiv();
 
+	newBook.setAttribute("data-key", myLibrary.length);
+
 	newBook.append(
 		titleDiv,
 		authorDiv,
@@ -81,7 +93,6 @@ function addToDom(book) {
 	);
 
 	books.appendChild(newBook);
-	console.log(myLibrary);
 }
 
 function createDiv(className) {
@@ -109,12 +120,12 @@ function createButton(id) {
 	//ensure svg filename matches id.
 	const button = document.createElement("button");
 	button.classList.add("icon");
-	button.id = id;
 
 	const img = document.createElement("img");
 	img.src = `/img/${id}.svg`;
 	img.alt = `${id} icon`;
 	img.classList.add("filter-brown");
+	img.id = id;
 
 	button.appendChild(img);
 	return button;
@@ -122,23 +133,21 @@ function createButton(id) {
 
 function initShelf() {
 	//Three books to initialise the bookshelf
-	const initBook1 = new Book(
+	addBookToLibrary(
 		"The Fellowship of the Ring",
 		"J. R. R. Tolkien",
 		423,
 		true
 	);
-	const initBook2 = new Book(
+	addBookToLibrary(
 		"Harry Potter and the Philosopher's Stone",
 		"J. K. Rowling",
 		223,
 		true
 	);
-	const initBook3 = new Book("Heir to the Empire", "Timothy Zhan", 416, true);
-	myLibrary.push(initBook1, initBook2, initBook3);
-
-	//display initial books
-	myLibrary.forEach(addToDom);
+	addBookToLibrary("Heir to the Empire", "Timothy Zhan", 416, true);
 }
 
 initShelf();
+
+addListeners();
