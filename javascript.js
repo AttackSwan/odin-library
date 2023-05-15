@@ -105,7 +105,6 @@ function removeBook(book, index) {
 	//delete from DOM
 	book.remove();
 	updateDataKeys();
-	console.log(myLibrary);
 }
 
 function updateDataKeys() {
