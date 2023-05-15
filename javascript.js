@@ -8,46 +8,34 @@ form.addEventListener("submit", submitForm);
 
 let myLibrary = [];
 
-function addListeners() {
-	books.addEventListener("click", function (event) {
-		if (event.target.id === "delete") {
-			const book = event.target.closest(".book");
-			const index = book.getAttribute("data-key");
-			//delete from library
-			myLibrary.splice(index, 1);
-			//delete from DOM
-			book.remove();
-			updateDataKeys();
-			console.log(myLibrary);
-		} else if (event.target.id === "complete") {
-			console.log("complete button pressed");
-		}
-	});
-}
-
-function updateDataKeys() {
-	const bookDivs = document.querySelectorAll(".book");
-	for (let i = 0; i < bookDivs.length; i++) {
-		const key = parseInt(bookDivs[i].getAttribute("data-key"));
-		if (key > i) {
-			bookDivs[i].setAttribute("data-key", i);
-		}
-	}
-}
-
 function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 	this.read = read;
+	this.changeReadStatus = function (index) {
+		this.read = !this.read;
+		colorReadIcon(index);
+	};
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-	const newBook = new Book(title, author, pages, isRead);
-	myLibrary.push(newBook);
-	addToDom(newBook);
-}
+function colorReadIcon(index) {
+	const bookDiv = document.querySelector(`.book[data-key="${index}" `);
+	const readIcon = bookDiv.querySelector("#complete");
+	const hasBeenRead = myLibrary[index].read;
 
+	if (hasBeenRead) {
+		//turn on green filter
+		readIcon.classList.remove("filter-brown");
+		readIcon.classList.add("filter-blue");
+		readIcon.style.top = "-20px";
+	} else {
+		//turn on brown filter
+		readIcon.classList.add("filter-brown");
+		readIcon.classList.remove("filter-blue");
+		readIcon.style.top = "0px";
+	}
+}
 function showForm() {
 	form.style.display = "block";
 	container.style.filter = "blur(4px)";
@@ -81,10 +69,53 @@ function submitForm(e) {
 	}
 }
 
+function addListeners() {
+	books.addEventListener("click", function (event) {
+		const book = event.target.closest(".book");
+		const index = book.getAttribute("data-key");
+		const id = event.target.id;
+
+		//delete button
+		if (id === "delete") {
+			removeBook(book, index);
+		}
+
+		//read button
+		else if (id === "complete") {
+			myLibrary[index].changeReadStatus(index);
+		}
+	});
+}
+
 function BookExists(title) {
 	return myLibrary.some(
 		(book) => book.title.toLowerCase() === title.toLowerCase()
 	);
+}
+
+function addBookToLibrary(title, author, pages, isRead) {
+	const newBook = new Book(title, author, pages, isRead);
+	myLibrary.push(newBook);
+	addToDom(newBook);
+}
+
+function removeBook(book, index) {
+	myLibrary.splice(index, 1);
+
+	//delete from DOM
+	book.remove();
+	updateDataKeys();
+	console.log(myLibrary);
+}
+
+function updateDataKeys() {
+	const bookDivs = document.querySelectorAll(".book");
+	for (let i = 0; i < bookDivs.length; i++) {
+		const key = parseInt(bookDivs[i].getAttribute("data-key"));
+		if (key > i) {
+			bookDivs[i].setAttribute("data-key", i);
+		}
+	}
 }
 
 function addToDom(book) {
@@ -94,10 +125,12 @@ function addToDom(book) {
 	const titleDiv = createDivWithContent("title", book.title);
 	const authorDiv = createDivWithContent("author", book.author);
 	const pagesDiv = createDivWithContent("pages", book.pages + " pages");
-	const iconsDiv = createIconsDiv();
+	const iconsDiv = createIconsDiv(book);
 
-	//book has already been added so length will be -1
-	newBook.setAttribute("data-key", myLibrary.length - 1);
+	//book has already been added so array index will be at length -1
+	const index = myLibrary.length - 1;
+
+	newBook.setAttribute("data-key", index);
 
 	newBook.append(
 		titleDiv,
@@ -109,6 +142,7 @@ function addToDom(book) {
 	);
 
 	books.appendChild(newBook);
+	colorReadIcon(index);
 }
 
 function createDiv(className) {
@@ -123,7 +157,7 @@ function createDivWithContent(className, content) {
 	return div;
 }
 
-function createIconsDiv() {
+function createIconsDiv(book) {
 	const div = createDiv("icons");
 	const completedButton = createButton("complete");
 	const deleteButton = createButton("delete");
@@ -140,7 +174,6 @@ function createButton(id) {
 	const img = document.createElement("img");
 	img.src = `/img/${id}.svg`;
 	img.alt = `${id} icon`;
-	img.classList.add("filter-brown");
 	img.id = id;
 
 	button.appendChild(img);
@@ -148,7 +181,7 @@ function createButton(id) {
 }
 
 function initShelf() {
-	//Three books to initialise the bookshelf
+	//Four books to initialise the bookshelf
 	addBookToLibrary(
 		"The Fellowship of the Ring",
 		"J. R. R. Tolkien",
@@ -162,6 +195,7 @@ function initShelf() {
 		true
 	);
 	addBookToLibrary("Heir to the Empire", "Timothy Zhan", 416, true);
+	addBookToLibrary("War and Peace", "Leo Tolstoy", 1225, false);
 }
 
 initShelf();
