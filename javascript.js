@@ -8,15 +8,17 @@ form.addEventListener("submit", submitForm);
 
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.read = read;
-	this.changeReadStatus = function (index) {
+class Book {
+	constructor(title, author, pages, read) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.read = read;
+	}
+	changeReadStatus(index) {
 		this.read = !this.read;
 		colorReadIcon(index);
-	};
+	}
 }
 
 function colorReadIcon(index) {
